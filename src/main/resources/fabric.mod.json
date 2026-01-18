@@ -1,0 +1,41 @@
+{
+	"schemaVersion": 1,
+	"id": "compactdiscs",
+	"version": "${version}",
+	"name": "Compact Discs",
+	"description": "Adds CDs, and new music tech into your world.",
+	"authors": [
+		"xFN10x"
+	],
+	"contact": {
+		"homepage": "https://xplate.dev/",
+		"sources": "https://github.com/FabricMC/fabric-example-mod"
+	},
+	"license": "CC0-1.0",
+	"icon": "assets/compactdiscs/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"fn10.musicexpansion.MusicExpanded"
+		],
+		"client": [
+			"fn10.musicexpansion.MusicExpandedClient"
+		],
+		"fabric-datagen": [
+			"fn10.musicexpansion.MusicExpandedDataGenerator"
+		]
+	},
+	"mixins": [
+		"compactdiscs.mixins.json",
+		{
+			"config": "compactdiscs.client.mixins.json",
+			"environment": "client"
+		}
+	],
+	"depends": {
+		"fabricloader": ">=0.18.4",
+		"minecraft": "~1.21.11",
+		"java": ">=21",
+		"fabric-api": "*"
+	}
+}
