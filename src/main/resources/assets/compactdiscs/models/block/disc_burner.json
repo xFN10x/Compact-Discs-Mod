@@ -1,9 +1,9 @@
 {
 	"format_version": "1.21.6",
-	"credit": "Made with Blockbench",
+	"credit": "Made with Blockbench; Made by xFN10x",
 	"texture_size": [64, 64],
 	"textures": {
-		"particle": "compactdiscs:block/disc_burner",
+		"particle": "minecraft:block/smooth_stone",
 		"main": "compactdiscs:block/disc_burner"
 	},
 	"elements": [

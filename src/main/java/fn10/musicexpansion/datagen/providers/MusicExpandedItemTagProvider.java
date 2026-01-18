@@ -11,9 +11,9 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 
-public class MusicExapandedTagProvider extends FabricTagProvider.ItemTagProvider {
+public class MusicExpandedItemTagProvider extends FabricTagProvider.ItemTagProvider {
 
-    public MusicExapandedTagProvider(FabricDataOutput output, CompletableFuture<Provider> registriesFuture) {
+    public MusicExpandedItemTagProvider(FabricDataOutput output, CompletableFuture<Provider> registriesFuture) {
         super(output, registriesFuture);
     }
 

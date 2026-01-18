@@ -11,8 +11,8 @@ import net.minecraft.world.level.block.state.BlockState;
 
 public class DiscBurnerBlock extends BaseEntityBlock {
 
-    protected DiscBurnerBlock(Properties properties) {
-        super(properties);
+    public DiscBurnerBlock(Properties properties) {
+        super(properties.noOcclusion());
     }
 
     @Override

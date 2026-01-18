@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "compactdiscs:block/disc_burner"
+    }
+  }
+}

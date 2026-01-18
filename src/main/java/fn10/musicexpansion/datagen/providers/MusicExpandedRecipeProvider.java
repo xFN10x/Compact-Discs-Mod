@@ -31,8 +31,8 @@ public class MusicExpandedRecipeProvider extends FabricRecipeProvider {
                 shaped(RecipeCategory.MISC, MusicExpandedItems.GLASS_DUST)
                         .pattern("AA")
                         .pattern("AA")
-                        .define(Character.valueOf('A'), MusicExapandedTagProvider.GLASS)
-                        .unlockedBy(getHasName(Items.GLASS), has(MusicExapandedTagProvider.GLASS))
+                        .define(Character.valueOf('A'), MusicExpandedItemTagProvider.GLASS)
+                        .unlockedBy(getHasName(Items.GLASS), has(MusicExpandedItemTagProvider.GLASS))
                         .save(exporter);
             }
 

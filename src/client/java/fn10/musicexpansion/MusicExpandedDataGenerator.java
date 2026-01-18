@@ -1,6 +1,8 @@
 package fn10.musicexpansion;
 
-import fn10.musicexpansion.datagen.providers.MusicExapandedTagProvider;
+import fn10.musicexpansion.datagen.providers.MusicExpandedBlockTagProvider;
+import fn10.musicexpansion.datagen.providers.MusicExpandedItemTagProvider;
+import fn10.musicexpansion.datagen.providers.MusicExpandedBlockLootTableProvider;
 import fn10.musicexpansion.datagen.providers.MusicExpandedRecipeProvider;
 import fn10.musicexpansion.providers.MusicExpandedModelProvider;
 import fn10.musicexpansion.providers.MusicExpandedTranslationProviderENG;
@@ -14,8 +16,10 @@ public class MusicExpandedDataGenerator implements DataGeneratorEntrypoint {
 		Pack pack = fabricDataGenerator.createPack();
 
 		pack.addProvider(MusicExpandedRecipeProvider::new);
-		pack.addProvider(MusicExapandedTagProvider::new);
+		pack.addProvider(MusicExpandedItemTagProvider::new);
 		pack.addProvider(MusicExpandedModelProvider::new);
 		pack.addProvider(MusicExpandedTranslationProviderENG::new);
+		pack.addProvider(MusicExpandedBlockLootTableProvider::new);
+		pack.addProvider(MusicExpandedBlockTagProvider::new);
 	}
 }
