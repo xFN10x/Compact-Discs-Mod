@@ -24,7 +24,7 @@ public class MusicExpandedItems {
     }
 
     public static final Item GLASS_DUST = register("glass_dust", Item::new, new Item.Properties().fireResistant());
-    public static final Item CD = register("compact_disc", Item::new, new Item.Properties());
+    public static final Item CD = register("compact_disc", Item::new, new Item.Properties().stacksTo(1));
 
     public static void init() {
 

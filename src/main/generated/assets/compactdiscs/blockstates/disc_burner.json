@@ -1,7 +1,19 @@
 {
   "variants": {
-    "": {
+    "facing=east": {
+      "model": "compactdiscs:block/disc_burner",
+      "y": 90
+    },
+    "facing=north": {
       "model": "compactdiscs:block/disc_burner"
+    },
+    "facing=south": {
+      "model": "compactdiscs:block/disc_burner",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "compactdiscs:block/disc_burner",
+      "y": 270
     }
   }
 }

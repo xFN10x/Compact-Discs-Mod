@@ -3,7 +3,7 @@ package fn10.musicexpansion.reg;
 import com.google.common.base.Function;
 
 import fn10.musicexpansion.MusicExpanded;
-import fn10.musicexpansion.blocks.entity.DiscBurnerBlock;
+import fn10.musicexpansion.blocks.DiscBurnerBlock;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;

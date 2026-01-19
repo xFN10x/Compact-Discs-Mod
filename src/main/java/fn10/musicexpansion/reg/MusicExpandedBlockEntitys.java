@@ -11,7 +11,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 
 public class MusicExpandedBlockEntitys {
-    public static final BlockEntityType<DiscBurnerBlockEntity> DISC_BURNER_BENTITY = register("counter",
+    public static final BlockEntityType<DiscBurnerBlockEntity> DISC_BURNER_BENTITY = register("disc_burner_block",
             DiscBurnerBlockEntity::new, MusicExpandedBlocks.DISC_BURNER_BLOCK);
 
     private static <T extends BlockEntity> BlockEntityType<T> register(
