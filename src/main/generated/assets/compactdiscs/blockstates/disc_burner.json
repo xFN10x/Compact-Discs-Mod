@@ -1,18 +1,33 @@
 {
   "variants": {
-    "facing=east": {
+    "facing=east,loaded=false": {
       "model": "compactdiscs:block/disc_burner",
       "y": 90
     },
-    "facing=north": {
+    "facing=east,loaded=true": {
+      "model": "compactdiscs:block/disc_burner_loaded",
+      "y": 90
+    },
+    "facing=north,loaded=false": {
       "model": "compactdiscs:block/disc_burner"
     },
-    "facing=south": {
+    "facing=north,loaded=true": {
+      "model": "compactdiscs:block/disc_burner_loaded"
+    },
+    "facing=south,loaded=false": {
       "model": "compactdiscs:block/disc_burner",
       "y": 180
     },
-    "facing=west": {
+    "facing=south,loaded=true": {
+      "model": "compactdiscs:block/disc_burner_loaded",
+      "y": 180
+    },
+    "facing=west,loaded=false": {
       "model": "compactdiscs:block/disc_burner",
+      "y": 270
+    },
+    "facing=west,loaded=true": {
+      "model": "compactdiscs:block/disc_burner_loaded",
       "y": 270
     }
   }
