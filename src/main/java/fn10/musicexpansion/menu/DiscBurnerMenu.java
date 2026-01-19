@@ -22,7 +22,7 @@ public class DiscBurnerMenu extends AbstractContainerMenu {
         checkContainerSize(discBurner, 3);
 
         addStandardInventorySlots(plrInventory, 8, 81);
-        INSERTED_DISC_SLOT = new Slot(discBurner, 0, 80, 13);
+        INSERTED_DISC_SLOT = new Slot(discBurner, 0, 80, 15);
 
         addSlot(INSERTED_DISC_SLOT);
     }

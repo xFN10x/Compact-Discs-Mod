@@ -24,18 +24,24 @@ public class MusicExpandedModelProvider extends FabricModelProvider {
     @Override
     public void generateBlockStateModels(BlockModelGenerators blockStateModelGenerator) {
         // Disc Burner
-        MultiVariant basic = BlockModelGenerators
+        MultiVariant nodisc = BlockModelGenerators
                 .plainVariant(Identifier.fromNamespaceAndPath(MusicExpanded.MOD_ID, "block/disc_burner"));
+        MultiVariant hasdisc = BlockModelGenerators
+                .plainVariant(Identifier.fromNamespaceAndPath(MusicExpanded.MOD_ID, "block/disc_burner_loaded"));
         blockStateModelGenerator.blockStateOutput
                 .accept(MultiVariantGenerator.dispatch(MusicExpandedBlocks.DISC_BURNER_BLOCK)
-                        .with(PropertyDispatch.initial(DiscBurnerBlock.FACING)
-                                .select(Direction.NORTH, basic)
-                                .select(Direction.EAST, basic.with(BlockModelGenerators.Y_ROT_90))
-                                .select(Direction.SOUTH, basic.with(BlockModelGenerators.Y_ROT_180))
-                                .select(Direction.WEST, basic.with(BlockModelGenerators.Y_ROT_270))));
+                        .with(PropertyDispatch.initial(DiscBurnerBlock.FACING, DiscBurnerBlock.LOADED)
+                                .select(Direction.NORTH, false, nodisc)
+                                .select(Direction.EAST, false, nodisc.with(BlockModelGenerators.Y_ROT_90))
+                                .select(Direction.SOUTH, false, nodisc.with(BlockModelGenerators.Y_ROT_180))
+                                .select(Direction.WEST, false, nodisc.with(BlockModelGenerators.Y_ROT_270))
+                                .select(Direction.NORTH, true, hasdisc)
+                                .select(Direction.EAST, true, hasdisc.with(BlockModelGenerators.Y_ROT_90))
+                                .select(Direction.SOUTH, true, hasdisc.with(BlockModelGenerators.Y_ROT_180))
+                                .select(Direction.WEST, true, hasdisc.with(BlockModelGenerators.Y_ROT_270))));
         blockStateModelGenerator.registerSimpleItemModel(MusicExpandedBlocks.DISC_BURNER_BLOCK,
                 Identifier.fromNamespaceAndPath(MusicExpanded.MOD_ID, "block/disc_burner"));
-                
+
     }
 
     @Override
