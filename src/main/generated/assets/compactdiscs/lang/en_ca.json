@@ -1,0 +1,8 @@
+{
+  "block.compactdiscs.disc_burner": "Disc Burner",
+  "item.compactdiscs.compact_disc": "Compact-Disc",
+  "item.compactdiscs.glass_dust": "Glass Dust",
+  "itemGroup.compactdiscs": "Compact Discs",
+  "text.cd.tooltip.cdrw": "CD-RW",
+  "text.cd.tooltip.nosongs": "No Songs"
+}
