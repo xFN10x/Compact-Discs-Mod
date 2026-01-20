@@ -21,23 +21,18 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Mirror;
-import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.StateDefinition.Builder;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
-import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-public class DiscBurnerBlock extends BaseEntityBlock {
+public class DiscBurnerBlock extends RotatedBaseEntityBlock {
 
-    public static final EnumProperty<Direction> FACING = BlockStateProperties.HORIZONTAL_FACING;
     public static final BooleanProperty LOADED = BooleanProperty.create("loaded");
 
     public DiscBurnerBlock(Properties properties) {
@@ -65,25 +60,6 @@ public class DiscBurnerBlock extends BaseEntityBlock {
     protected VoxelShape getShape(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos,
             CollisionContext collisionContext) {
         return getCollisionShape(blockState, blockGetter, blockPos, collisionContext);
-    }
-
-    protected BlockState rotate(BlockState blockState, Rotation rotation) {
-        return (BlockState) blockState.setValue(FACING, rotation.rotate((Direction) blockState.getValue(FACING)));
-    }
-
-    protected BlockState mirror(BlockState blockState, Mirror mirror) {
-        return blockState.rotate(mirror.getRotation((Direction) blockState.getValue(FACING)));
-    }
-
-    @Override
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(FACING);
-        builder.add(LOADED);
-    }
-
-    public @Nullable BlockState getStateForPlacement(BlockPlaceContext blockPlaceContext) {
-        return this.defaultBlockState().setValue(LOADED, false).setValue(FACING,
-                blockPlaceContext.getHorizontalDirection().getOpposite());
     }
 
     @Override
@@ -115,5 +91,16 @@ public class DiscBurnerBlock extends BaseEntityBlock {
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level world, BlockState state,
             BlockEntityType<T> type) {
         return createTickerHelper(type, MusicExpandedBlockEntitys.DISC_BURNER_BENTITY, DiscBurnerBlockEntity::tick);
+    }
+
+    @Override
+    public BlockState getBaseStateForPlacement(BlockPlaceContext blockPlaceContext) {
+        return defaultBlockState().setValue(LOADED, false);
+    }
+
+    @Override
+    public Builder<Block, BlockState> addBlockStateDefinitions(Builder<Block, BlockState> builder) {
+        builder.add(LOADED);
+        return builder;
     }
 }
