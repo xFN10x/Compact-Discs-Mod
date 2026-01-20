@@ -20,6 +20,8 @@ public class MusicExpandedTranslationProviderENG extends FabricLanguageProvider 
         translationBuilder.add(MusicExpandedItems.GLASS_DUST, "Glass Dust");
         translationBuilder.add(MusicExpandedItems.CD, "Compact-Disc");
         translationBuilder.add(MusicExpandedBlocks.DISC_BURNER_BLOCK, "Disc Burner");
+        translationBuilder.add("menu.container.disc_burner", "Disc Burner");
+        translationBuilder.add("menu.container.stereo", "Stereo");
         translationBuilder.add("itemGroup.compactdiscs", "Compact Discs");
         translationBuilder.add("text.cd.tooltip.nosongs", "No Songs");
         translationBuilder.add("text.cd.tooltip.cdrw", "CD-RW");

@@ -4,6 +4,7 @@ import com.google.common.base.Function;
 
 import fn10.musicexpansion.MusicExpanded;
 import fn10.musicexpansion.blocks.DiscBurnerBlock;
+import fn10.musicexpansion.blocks.StereoBlock;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
@@ -47,6 +48,7 @@ public class MusicExpandedBlocks {
     }
 
     public static final Block DISC_BURNER_BLOCK = register("disc_burner", DiscBurnerBlock::new, BlockBehaviour.Properties.of(), true);
+    public static final Block STEREO_BLOCK = register("stereo", StereoBlock::new, BlockBehaviour.Properties.of(), true);
 
     public static void init() {
 

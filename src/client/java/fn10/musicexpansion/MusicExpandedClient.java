@@ -21,5 +21,6 @@ public class MusicExpandedClient implements ClientModInitializer {
 		});
 		MenuScreens.register(MusicExpandedMenus.DISC_BURNER_MENU, new DiscBurnerScreenConstructor());
 		BlockRenderLayerMap.putBlock(MusicExpandedBlocks.DISC_BURNER_BLOCK, ChunkSectionLayer.TRANSLUCENT);
+		BlockRenderLayerMap.putBlock(MusicExpandedBlocks.STEREO_BLOCK, ChunkSectionLayer.TRANSLUCENT);
 	}
 }

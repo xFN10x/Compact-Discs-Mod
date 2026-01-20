@@ -1,8 +1,6 @@
 package fn10.musicexpansion.blocks.entity;
 
-import fn10.musicexpansion.MusicExpanded;
 import fn10.musicexpansion.blocks.DiscBurnerBlock;
-import fn10.musicexpansion.menu.DiscBurnerMenu;
 import fn10.musicexpansion.reg.MusicExpandedBlockEntitys;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
@@ -14,18 +12,12 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
-public class DiscBurnerBlockEntity extends BaseContainerBlockEntity {
-
+public class StereoBlockEntity extends BaseContainerBlockEntity {
     public NonNullList<ItemStack> inventory;
 
-    public DiscBurnerBlockEntity(BlockPos blockPos, BlockState blockState) {
-        super(MusicExpandedBlockEntitys.DISC_BURNER_BENTITY, blockPos, blockState);
+    public StereoBlockEntity(BlockPos blockPos, BlockState blockState) {
+        super(MusicExpandedBlockEntitys.STEREO_BENTITY, blockPos, blockState);
         inventory = NonNullList.withSize(3, ItemStack.EMPTY);
-    }
-
-    @Override
-    public Component getDisplayName() {
-        return Component.translatable("menu.container.disc_burner");
     }
 
     @Override
@@ -35,13 +27,13 @@ public class DiscBurnerBlockEntity extends BaseContainerBlockEntity {
 
     @Override
     protected AbstractContainerMenu createMenu(int i, Inventory inventory) {
-        return new DiscBurnerMenu(inventory, this, i);
-
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'createMenu'");
     }
 
     @Override
     protected Component getDefaultName() {
-        return getDisplayName();
+        return Component.translatable("menu.container.stereo");
     }
 
     @Override
@@ -55,6 +47,7 @@ public class DiscBurnerBlockEntity extends BaseContainerBlockEntity {
     }
 
     public static void tick(Level world, BlockPos blockPos, BlockState blockState, DiscBurnerBlockEntity entity) {
-        world.setBlockAndUpdate(blockPos, blockState.setValue(DiscBurnerBlock.LOADED, !entity.inventory.get(0).isEmpty()));
+        world.setBlockAndUpdate(blockPos,
+                blockState.setValue(DiscBurnerBlock.LOADED, !entity.inventory.get(0).isEmpty()));
     }
 }
