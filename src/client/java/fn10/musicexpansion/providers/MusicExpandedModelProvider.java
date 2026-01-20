@@ -2,6 +2,7 @@ package fn10.musicexpansion.providers;
 
 import fn10.musicexpansion.MusicExpanded;
 import fn10.musicexpansion.blocks.DiscBurnerBlock;
+import fn10.musicexpansion.blocks.StereoBlock;
 import fn10.musicexpansion.reg.MusicExpandedBlocks;
 import fn10.musicexpansion.reg.MusicExpandedItems;
 import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
@@ -41,6 +42,24 @@ public class MusicExpandedModelProvider extends FabricModelProvider {
                                 .select(Direction.WEST, true, hasdisc.with(BlockModelGenerators.Y_ROT_270))));
         blockStateModelGenerator.registerSimpleItemModel(MusicExpandedBlocks.DISC_BURNER_BLOCK,
                 Identifier.fromNamespaceAndPath(MusicExpanded.MOD_ID, "block/disc_burner"));
+                // Stereo
+        MultiVariant snodisc = BlockModelGenerators
+                .plainVariant(Identifier.fromNamespaceAndPath(MusicExpanded.MOD_ID, "block/stereo"));
+        MultiVariant shasdisc = BlockModelGenerators
+                .plainVariant(Identifier.fromNamespaceAndPath(MusicExpanded.MOD_ID, "block/stereo_loaded"));
+        blockStateModelGenerator.blockStateOutput
+                .accept(MultiVariantGenerator.dispatch(MusicExpandedBlocks.STEREO_BLOCK)
+                        .with(PropertyDispatch.initial(StereoBlock.FACING, StereoBlock.LOADED)
+                                .select(Direction.NORTH, false, snodisc)
+                                .select(Direction.EAST, false, snodisc.with(BlockModelGenerators.Y_ROT_90))
+                                .select(Direction.SOUTH, false, snodisc.with(BlockModelGenerators.Y_ROT_180))
+                                .select(Direction.WEST, false, snodisc.with(BlockModelGenerators.Y_ROT_270))
+                                .select(Direction.NORTH, true, shasdisc)
+                                .select(Direction.EAST, true, shasdisc.with(BlockModelGenerators.Y_ROT_90))
+                                .select(Direction.SOUTH, true, shasdisc.with(BlockModelGenerators.Y_ROT_180))
+                                .select(Direction.WEST, true, shasdisc.with(BlockModelGenerators.Y_ROT_270))));
+        blockStateModelGenerator.registerSimpleItemModel(MusicExpandedBlocks.STEREO_BLOCK,
+                Identifier.fromNamespaceAndPath(MusicExpanded.MOD_ID, "block/stereo"));
 
     }
 
