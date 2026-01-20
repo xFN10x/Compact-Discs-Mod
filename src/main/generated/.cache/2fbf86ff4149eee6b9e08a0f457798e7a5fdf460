@@ -1,7 +1,9 @@
 // 1.21.11	-999999999-01-01T00:00:00	Compact Discs/Model Definitions
 ad0431593969498adf5853a2f86435123cd48221 assets/compactdiscs/blockstates/disc_burner.json
+af0e04484b2413f909262673f0ae5a2658d170fb assets/compactdiscs/blockstates/stereo.json
 8992f88c013726b4bf1b9ff417bf12e3b61cd436 assets/compactdiscs/items/compact_disc.json
 d576ad8cd6569e6aac06a71159d22196e667d55f assets/compactdiscs/items/disc_burner.json
 23ab07262c413c1fa3d89e78ba9cd3fd4125b9cd assets/compactdiscs/items/glass_dust.json
+a92eff07c2c1600f25bed9e3252f3afebc54a88c assets/compactdiscs/items/stereo.json
 c080827811eb5c3cd83e6bcc0ca103d8c39098d7 assets/compactdiscs/models/item/compact_disc.json
 351449e1c59492e9fe29006c2bb68639d60d40ed assets/compactdiscs/models/item/glass_dust.json
