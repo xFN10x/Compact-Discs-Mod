@@ -2,6 +2,7 @@ package fn10.musicexpansion.providers;
 
 import java.util.concurrent.CompletableFuture;
 
+import fn10.musicexpansion.reg.MusicExpandedBlocks;
 import fn10.musicexpansion.reg.MusicExpandedItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
@@ -11,14 +12,17 @@ public class MusicExpandedTranslationProviderENG extends FabricLanguageProvider 
 
     public MusicExpandedTranslationProviderENG(FabricDataOutput dataOutput,
             CompletableFuture<Provider> registryLookup) {
-        super(dataOutput, "en_us", registryLookup);
+        super(dataOutput, "en_ca", registryLookup);
     }
 
     @Override
     public void generateTranslations(Provider registryLookup, TranslationBuilder translationBuilder) {
         translationBuilder.add(MusicExpandedItems.GLASS_DUST, "Glass Dust");
         translationBuilder.add(MusicExpandedItems.CD, "Compact-Disc");
+        translationBuilder.add(MusicExpandedBlocks.DISC_BURNER_BLOCK, "Disc Burner");
         translationBuilder.add("itemGroup.compactdiscs", "Compact Discs");
+        translationBuilder.add("text.cd.tooltip.nosongs", "No Songs");
+        translationBuilder.add("text.cd.tooltip.cdrw", "CD-RW");
     }
 
 }

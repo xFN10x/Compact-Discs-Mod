@@ -14,10 +14,11 @@ import net.minecraft.world.item.ItemStack;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import fn10.musicexpansion.menu.MusicExpandedMenus;
 import fn10.musicexpansion.reg.MusicExpandedBlockEntitys;
 import fn10.musicexpansion.reg.MusicExpandedBlocks;
+import fn10.musicexpansion.reg.MusicExpandedItemComponents;
 import fn10.musicexpansion.reg.MusicExpandedItems;
+import fn10.musicexpansion.reg.MusicExpandedMenus;
 
 public class MusicExpanded implements ModInitializer {
 	public static final String MOD_ID = "compactdiscs";
@@ -42,11 +43,13 @@ public class MusicExpanded implements ModInitializer {
 		ItemGroupEvents.modifyEntriesEvent(CD_ITEM_GROUP_KEY).register(itemGroup -> {
 			itemGroup.accept(MusicExpandedItems.CD);
 			itemGroup.accept(MusicExpandedItems.GLASS_DUST);
+			itemGroup.accept(MusicExpandedBlocks.DISC_BURNER_BLOCK);
 		});
 
 		MusicExpandedItems.init();
 		MusicExpandedBlockEntitys.init();
 		MusicExpandedBlocks.init();
 		MusicExpandedMenus.init();
+		MusicExpandedItemComponents.init();
 	}
 }

@@ -55,7 +55,7 @@ public class DiscBurnerBlockEntity extends BaseContainerBlockEntity {
     }
 
     public static void tick(Level world, BlockPos blockPos, BlockState blockState, DiscBurnerBlockEntity entity) {
-        MusicExpanded.LOGGER.info("tick " + !entity.inventory.get(0).isEmpty());
+        //MusicExpanded.LOGGER.info("tick " + !entity.inventory.get(0).isEmpty());
         world.setBlockAndUpdate(blockPos, blockState.setValue(DiscBurnerBlock.LOADED, !entity.inventory.get(0).isEmpty()));
     }
 }
