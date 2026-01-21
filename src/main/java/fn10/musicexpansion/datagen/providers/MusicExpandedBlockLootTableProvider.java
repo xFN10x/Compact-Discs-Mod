@@ -17,6 +17,7 @@ public class MusicExpandedBlockLootTableProvider extends FabricBlockLootTablePro
     @Override
     public void generate() {
         dropSelf(MusicExpandedBlocks.DISC_BURNER_BLOCK);
+        dropSelf(MusicExpandedBlocks.STEREO_BLOCK);
     }
 
 }
