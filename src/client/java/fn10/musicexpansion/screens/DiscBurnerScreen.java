@@ -13,6 +13,8 @@ public class DiscBurnerScreen extends AbstractContainerScreen<DiscBurnerMenu> {
 
     private final Identifier BG = Identifier.fromNamespaceAndPath(MusicExpanded.MOD_ID,
             "textures/gui/container/disc_burner.png");
+            private final Identifier PROGRESS_SPRITE = Identifier.fromNamespaceAndPath(MusicExpanded.MOD_ID,
+            "container/disc_burner/progress");
     private final int bgWidth = 176;
     private final int bgHeight = 161;
 
