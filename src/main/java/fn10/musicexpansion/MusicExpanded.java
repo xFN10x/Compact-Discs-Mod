@@ -14,6 +14,7 @@ import net.minecraft.world.item.ItemStack;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import fn10.musicexpansion.reg.MusicExpandedAudio;
 import fn10.musicexpansion.reg.MusicExpandedBlockEntitys;
 import fn10.musicexpansion.reg.MusicExpandedBlocks;
 import fn10.musicexpansion.reg.MusicExpandedItemComponents;
@@ -52,5 +53,6 @@ public class MusicExpanded implements ModInitializer {
 		MusicExpandedBlocks.init();
 		MusicExpandedMenus.init();
 		MusicExpandedItemComponents.init();
+		MusicExpandedAudio.init();
 	}
 }

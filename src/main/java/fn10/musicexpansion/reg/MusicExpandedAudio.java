@@ -15,4 +15,7 @@ public class MusicExpandedAudio {
 
     public static final SoundEvent DISC_BURNER_START = register("disc_burner_start");
 
+	public static void init() {
+		
+	}
 }
