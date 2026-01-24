@@ -1,8 +1,7 @@
 package fn10.musicexpansion.blocks.entity;
 
 import java.util.Iterator;
-import java.util.Map;
-
+import fn10.musicexpansion.MusicExpanded;
 import fn10.musicexpansion.blocks.DiscBurnerBlock;
 import fn10.musicexpansion.menu.DiscBurnerMenu;
 import fn10.musicexpansion.reg.MusicExpandedAudio;
@@ -13,7 +12,6 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.network.protocol.game.ClientboundStopSoundPacket;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
@@ -23,8 +21,10 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.inventory.SimpleContainerData;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.ValueInput;
@@ -82,7 +82,8 @@ public class DiscBurnerBlockEntity extends BaseContainerBlockEntity {
         ContainerHelper.saveAllItems(output, inventory);
         TypedOutputList<ItemStack> list = output.list("burningCurrently", ItemStack.CODEC);
         burningCurrently.forEach(stack -> {
-            list.add(stack);
+            if (!stack.isEmpty())
+                list.add(stack);
         });
 
         super.saveAdditional(output);
@@ -107,11 +108,6 @@ public class DiscBurnerBlockEntity extends BaseContainerBlockEntity {
     @Override
     public CompoundTag getUpdateTag(HolderLookup.Provider registryLookup) {
         return saveWithoutMetadata(registryLookup);
-    }
-
-    @Override
-    public ClientboundBlockEntityDataPacket getUpdatePacket() {
-        return ClientboundBlockEntityDataPacket.create(this);
     }
 
     public static void tick(Level world, BlockPos blockPos, BlockState blockState, DiscBurnerBlockEntity entity) {
@@ -151,16 +147,16 @@ public class DiscBurnerBlockEntity extends BaseContainerBlockEntity {
                 entity.isBurning = true;
                 world.playSound(null, blockPos, MusicExpandedAudio.DISC_BURNER_START, SoundSource.BLOCKS);
             } else {
-                // MusicExpanded.LOGGER.info("Lets see if " + input1.toString() + " is " +
-                // entity.burningCurrently.get(0).toString());
-                // MusicExpanded.LOGGER.info("Lets see if " + input2.toString() + " is " +
-                // entity.burningCurrently.get(1).toString());
                 if (!(ItemStack.matches(entity.burningCurrently.get(0), input1)
                         && ItemStack.matches(entity.burningCurrently.get(1), input2))) {
                     entity.isBurning = false;
                     entity.stoppedSound = false;
                 }
                 entity.burnTime--;
+                if (entity.burnTime <= 0) {
+                    Block.popResource(world, blockPos, entity.inventory.get(0));
+                    entity.inventory.set(0, ItemStack.EMPTY);
+                }
                 entity.data.set(0, entity.burnTime);
             }
         } else if (entity.isBurning) {
