@@ -164,6 +164,7 @@ public class DiscBurnerBlockEntity extends BaseContainerBlockEntity {
                 entity.data.set(0, entity.burnTime);
             }
         } else if (entity.isBurning) {
+            entity.isBurning = false;
             entity.stoppedSound = false;
         }
     }
