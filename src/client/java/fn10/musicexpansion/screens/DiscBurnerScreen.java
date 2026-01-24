@@ -14,7 +14,7 @@ public class DiscBurnerScreen extends AbstractContainerScreen<DiscBurnerMenu> {
     private final Identifier BG = Identifier.fromNamespaceAndPath(MusicExpanded.MOD_ID,
             "textures/gui/container/disc_burner.png");
     private final Identifier PROGRESS_SPRITE = Identifier.fromNamespaceAndPath(MusicExpanded.MOD_ID,
-            "container/disc_burner/progress");
+            "container/disc_burner/progress_new");
     private final int bgWidth = 176;
     private final int bgHeight = 161;
     private final DiscBurnerMenu menu;
@@ -38,15 +38,22 @@ public class DiscBurnerScreen extends AbstractContainerScreen<DiscBurnerMenu> {
         float progress = (float) burnTime / (float) maxTime;
         int bgX = (width - bgWidth) / 2;
         int bgY = (height - bgHeight) / 2;
-        guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, PROGRESS_SPRITE, 20, 41, 0, 0, bgX + 78, bgY + 69, 20,
-                Math.round(41 * progress));
+        int imgHeight = 41;
+        int imgWidth = 24;
+        int imgX = 76;
+        int imgY = 23;
+        int height = Math.round(imgHeight * progress);
+        guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, PROGRESS_SPRITE, imgWidth, imgHeight, 0,
+                imgHeight - height, bgX + imgX,
+                bgY + imgY + imgHeight - height, imgWidth,
+                height);
     }
 
     @Override
     public void render(GuiGraphics guiGraphics, int i, int j, float f) {
+        renderProgressSprite(guiGraphics);
         super.render(guiGraphics, i, j, f);
         renderTooltip(guiGraphics, i, j);
-        renderProgressSprite(guiGraphics);
     }
 
 }
