@@ -1,0 +1,8 @@
+{
+    "disc_burner_start": {
+        "subtitle": "subtitle.compactdiscs.block.discburner",
+        "sounds": [
+            "compactdiscs:disc_burner_start"
+        ]
+    }
+}

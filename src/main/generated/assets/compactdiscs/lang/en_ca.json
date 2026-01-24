@@ -6,6 +6,7 @@
   "itemGroup.compactdiscs": "Compact Discs",
   "menu.container.disc_burner": "Disc Burner",
   "menu.container.stereo": "Stereo",
+  "subtitle.compactdiscs.block.discburner": "Disc Burner Starts...",
   "text.cd.tooltip.cdrw": "CD-RW",
   "text.cd.tooltip.nosongs": "No Songs"
 }
