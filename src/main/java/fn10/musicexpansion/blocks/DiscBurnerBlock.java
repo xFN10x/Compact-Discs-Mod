@@ -34,10 +34,11 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 public class DiscBurnerBlock extends RotatedBaseEntityBlock {
 
     public static final BooleanProperty LOADED = BooleanProperty.create("loaded");
+    public static final BooleanProperty BURNING = BooleanProperty.create("burning");
 
     public DiscBurnerBlock(Properties properties) {
         super(properties.noOcclusion());
-        registerDefaultState(defaultBlockState().setValue(FACING, Direction.NORTH).setValue(LOADED, false));
+        registerDefaultState(defaultBlockState().setValue(FACING, Direction.NORTH).setValue(LOADED, false).setValue(BURNING, false));
     }
 
     @Override
@@ -101,6 +102,7 @@ public class DiscBurnerBlock extends RotatedBaseEntityBlock {
     @Override
     public Builder<Block, BlockState> addBlockStateDefinitions(Builder<Block, BlockState> builder) {
         builder.add(LOADED);
+        builder.add(BURNING);
         return builder;
     }
 }
