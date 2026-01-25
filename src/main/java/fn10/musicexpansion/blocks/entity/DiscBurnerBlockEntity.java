@@ -3,9 +3,11 @@ package fn10.musicexpansion.blocks.entity;
 import java.util.Iterator;
 import fn10.musicexpansion.MusicExpanded;
 import fn10.musicexpansion.blocks.DiscBurnerBlock;
+import fn10.musicexpansion.items.CompactDiscItem;
 import fn10.musicexpansion.menu.DiscBurnerMenu;
 import fn10.musicexpansion.reg.MusicExpandedAudio;
 import fn10.musicexpansion.reg.MusicExpandedBlockEntitys;
+import fn10.musicexpansion.reg.MusicExpandedItemComponents;
 import fn10.musicexpansion.reg.MusicExpandedItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
@@ -100,7 +102,7 @@ public class DiscBurnerBlockEntity extends BaseContainerBlockEntity {
         int i = 0;
         Iterator<ItemStack> list = input.list("burningCurrently", ItemStack.CODEC).get().iterator();
         while (list.hasNext()) {
-            inventory.set(i, list.next());
+            burningCurrently.set(i, list.next());
             i++;
         }
     }
@@ -113,7 +115,11 @@ public class DiscBurnerBlockEntity extends BaseContainerBlockEntity {
     public static void tick(Level world, BlockPos blockPos, BlockState blockState, DiscBurnerBlockEntity entity) {
         if (world.isClientSide())
             return;
-        boolean loadedCurrently = !entity.inventory.get(0).isEmpty();
+        ItemStack input0 = entity.inventory.get(0);
+        ItemStack input1 = entity.inventory.get(1);
+        ItemStack input2 = entity.inventory.get(2);
+
+        boolean loadedCurrently = !input0.isEmpty();
         boolean isMarkedLoaded = blockState.getValue(DiscBurnerBlock.LOADED);
         if (loadedCurrently != isMarkedLoaded) {
             world.setBlockAndUpdate(blockPos,
@@ -126,8 +132,6 @@ public class DiscBurnerBlockEntity extends BaseContainerBlockEntity {
                     blockState.setValue(DiscBurnerBlock.BURNING, entity.isBurning));
         }
 
-        ItemStack input1 = entity.inventory.get(1);
-        ItemStack input2 = entity.inventory.get(2);
         if (!entity.stoppedSound) {
             entity.stoppedSound = true;
             ClientboundStopSoundPacket packet = new ClientboundStopSoundPacket(
@@ -139,7 +143,7 @@ public class DiscBurnerBlockEntity extends BaseContainerBlockEntity {
             }
         }
         if ((input1.is(MusicExpandedItems.CD) || input2.is(MusicExpandedItems.CD))
-                && entity.inventory.get(0).is(MusicExpandedItems.CD)) {
+                && input0.is(MusicExpandedItems.CD)) {
             if (!entity.isBurning) {
                 entity.burnTime = 700;
                 entity.burningCurrently.set(0, input1);
@@ -154,7 +158,8 @@ public class DiscBurnerBlockEntity extends BaseContainerBlockEntity {
                 }
                 entity.burnTime--;
                 if (entity.burnTime <= 0) {
-                    Block.popResource(world, blockPos, entity.inventory.get(0));
+                    CompactDiscItem.combineAllSongs(input0, input1, input2);
+                    Block.popResource(world, blockPos, input0);
                     entity.inventory.set(0, ItemStack.EMPTY);
                 }
                 entity.data.set(0, entity.burnTime);
