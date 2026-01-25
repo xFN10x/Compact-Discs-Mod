@@ -1,13 +1,17 @@
 package fn10.musicexpansion;
 
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
+import net.minecraft.commands.Commands;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.server.permissions.Permission;
+import net.minecraft.server.permissions.Permissions;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 
@@ -46,6 +50,15 @@ public class MusicExpanded implements ModInitializer {
 			itemGroup.accept(MusicExpandedItems.GLASS_DUST);
 			itemGroup.accept(MusicExpandedBlocks.DISC_BURNER_BLOCK);
 			itemGroup.accept(MusicExpandedBlocks.STEREO_BLOCK);
+		});
+
+		CommandRegistrationCallback.EVENT.register((dis, reg, enviro) -> {
+			dis.register(Commands.literal("compactdiscs")
+					.then(
+							Commands.literal("give_example_discs")
+									.requires(source -> source.permissions()
+											.hasPermission(Permissions.COMMANDS_MODERATOR))
+									.executes(MusicExpandedCommands::giveExampleDiscs)));
 		});
 
 		MusicExpandedItems.init();
