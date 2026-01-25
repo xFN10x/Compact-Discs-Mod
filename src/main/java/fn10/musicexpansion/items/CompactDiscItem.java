@@ -1,10 +1,8 @@
 package fn10.musicexpansion.items;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
-import fn10.musicexpansion.music.CDSong;
 import fn10.musicexpansion.reg.MusicExpandedItemComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -30,7 +28,7 @@ public class CompactDiscItem extends Item {
      * @return {@code to}, but it has all the songs
      */
     public static ItemStack combineAllSongs(ItemStack to, ItemStack... cds) {
-        ArrayList<CDSong> allSongs = new ArrayList<>();
+        ArrayList<String> allSongs = new ArrayList<>();
         ArrayList<ItemStack> allCds = new ArrayList<>();
         allCds.add(to);
         allCds.addAll(List.of(cds));
@@ -38,7 +36,7 @@ public class CompactDiscItem extends Item {
         for (ItemStack CD : allCds) {
             if (!CD.has(MusicExpandedItemComponents.CD_SONGS) || CD.isEmpty())
                 continue;
-            for (CDSong cdsong : CD.get(MusicExpandedItemComponents.CD_SONGS)) {
+            for (String cdsong : CD.get(MusicExpandedItemComponents.CD_SONGS)) {
                 if (!allSongs.contains(cdsong))
                     allSongs.add(cdsong);
             }
@@ -51,8 +49,8 @@ public class CompactDiscItem extends Item {
         ArrayList<Component> list = new ArrayList<>();
         if (stack.has(MusicExpandedItemComponents.CD_SONGS)) {
             list.add(Component.translatable("text.cd.tooltip.cdrw").withColor(0xAAAAAA));
-            for (CDSong song : stack.get(MusicExpandedItemComponents.CD_SONGS)) {
-                list.add(addToFront("- ", Component.translatable(song.id())).withColor(0xAAAAAA));
+            for (String song : stack.get(MusicExpandedItemComponents.CD_SONGS)) {
+                list.add(addToFront("- ", Component.translatable("cd.song." + song)).withColor(0xAAAAAA));
             }
             //list.set(0, ((MutableComponent)list.get(0)).withColor(0xff58ff));
         } else {

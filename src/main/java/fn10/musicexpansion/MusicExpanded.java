@@ -4,6 +4,7 @@ import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
+import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.minecraft.commands.Commands;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -18,6 +19,7 @@ import net.minecraft.world.item.ItemStack;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import fn10.musicexpansion.music.network.ClientBoundCDTrackPlayPayload;
 import fn10.musicexpansion.reg.MusicExpandedAudio;
 import fn10.musicexpansion.reg.MusicExpandedBlockEntitys;
 import fn10.musicexpansion.reg.MusicExpandedBlocks;
@@ -67,5 +69,7 @@ public class MusicExpanded implements ModInitializer {
 		MusicExpandedMenus.init();
 		MusicExpandedItemComponents.init();
 		MusicExpandedAudio.init();
+
+		PayloadTypeRegistry.playS2C().register(ClientBoundCDTrackPlayPayload.ID, ClientBoundCDTrackPlayPayload.CODEC);
 	}
 }
