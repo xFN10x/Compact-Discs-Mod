@@ -4,8 +4,8 @@
 	"texture_size": [32, 32],
 	"textures": {
 		"main": "compactdiscs:block/disc_burner",
-		"particle": "block/smooth_stone",
-		"disc_ani": "compactdiscs:block/disc_ani"
+		"disc_ani": "compactdiscs:block/disc_ani",
+		"particle": "block/smooth_stone"
 	},
 	"elements": [
 		{
