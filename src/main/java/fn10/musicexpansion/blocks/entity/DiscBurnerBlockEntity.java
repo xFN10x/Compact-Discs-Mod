@@ -16,6 +16,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundStopSoundPacket;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.entity.player.Inventory;
@@ -161,6 +162,8 @@ public class DiscBurnerBlockEntity extends BaseContainerBlockEntity {
                     CompactDiscItem.combineAllSongs(input0, input1, input2);
                     Block.popResource(world, blockPos, input0);
                     entity.inventory.set(0, ItemStack.EMPTY);
+                    world.playSound(null, blockPos, SoundEvents.DISPENSER_DISPENSE, SoundSource.BLOCKS);
+                    world.playSound(null, blockPos, SoundEvents.ENCHANTMENT_TABLE_USE, SoundSource.BLOCKS);
                 }
                 entity.data.set(0, entity.burnTime);
             }
