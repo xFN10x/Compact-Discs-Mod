@@ -6,6 +6,9 @@
   "itemGroup.compactdiscs": "Compact Discs",
   "menu.container.disc_burner": "Disc Burner",
   "menu.container.stereo": "Stereo",
+  "song.compactdiscs.c418.11": "C418 - 11",
+  "song.compactdiscs.c418.13": "C418 - 13",
+  "song.compactdiscs.c418.cat": "C418 - Cat",
   "subtitle.compactdiscs.block.discburner": "Disc Burner Starts...",
   "text.cd.tooltip.cdrw": "CD-RW",
   "text.cd.tooltip.nosongs": "No Songs"
