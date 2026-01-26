@@ -34,10 +34,12 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 public class StereoBlock extends RotatedBaseEntityBlock {
 
     public static final BooleanProperty LOADED = BooleanProperty.create("loaded");
+    public static final BooleanProperty PLAYING = BooleanProperty.create("loaded");
 
     public StereoBlock(Properties properties) {
         super(properties.noOcclusion());
-        registerDefaultState(defaultBlockState().setValue(FACING, Direction.NORTH).setValue(LOADED, false));
+        registerDefaultState(
+                defaultBlockState().setValue(FACING, Direction.NORTH).setValue(LOADED, false).setValue(PLAYING, false));
     }
 
     @Override
@@ -48,8 +50,14 @@ public class StereoBlock extends RotatedBaseEntityBlock {
     @Override
     public InteractionResult useWithoutItem(BlockState blockState, Level level, BlockPos blockPos, Player player,
             BlockHitResult blockHitResult) {
-        MenuProvider menuProvider = getMenuProvider(blockState, level, blockPos);
-        player.openMenu(menuProvider);
+        Optional<StereoBlockEntity> entity = level.getBlockEntity(blockPos,
+                MusicExpandedBlockEntitys.STEREO_BENTITY);
+        StereoBlockEntity realEntity = entity.get();
+        if (player.isCrouching()) {
+            realEntity.nextTrackTime = 1;
+        } else {
+            realEntity.ejectCD();
+        }
         return InteractionResult.SUCCESS;
     }
 
@@ -73,7 +81,7 @@ public class StereoBlock extends RotatedBaseEntityBlock {
 
     @Override
     public Builder<Block, BlockState> addBlockStateDefinitions(Builder<Block, BlockState> builder) {
-        return builder.add(LOADED);
+        return builder.add(LOADED).add(PLAYING);
     }
 
     @Override

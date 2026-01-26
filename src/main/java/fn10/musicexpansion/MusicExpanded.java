@@ -18,7 +18,7 @@ import net.minecraft.world.item.ItemStack;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import fn10.musicexpansion.music.network.ClientBoundCDTrackPlayPayload;
+import fn10.musicexpansion.music.network.CDTrackPlayPayloadS2C;
 import fn10.musicexpansion.reg.MusicExpandedAudio;
 import fn10.musicexpansion.reg.MusicExpandedBlockEntitys;
 import fn10.musicexpansion.reg.MusicExpandedBlocks;
@@ -69,6 +69,6 @@ public class MusicExpanded implements ModInitializer {
 		MusicExpandedItemComponents.init();
 		MusicExpandedAudio.init();
 
-		PayloadTypeRegistry.playS2C().register(ClientBoundCDTrackPlayPayload.ID, ClientBoundCDTrackPlayPayload.CODEC);
+		PayloadTypeRegistry.playS2C().register(CDTrackPlayPayloadS2C.ID, CDTrackPlayPayloadS2C.CODEC);
 	}
 }

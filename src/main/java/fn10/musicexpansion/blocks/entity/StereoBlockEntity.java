@@ -14,11 +14,13 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.ValueInput;
@@ -27,13 +29,26 @@ import net.minecraft.world.level.storage.ValueOutput;
 public class StereoBlockEntity extends BaseContainerBlockEntity {
     public NonNullList<ItemStack> inventory;
     public boolean playing = false;
-    private ActiveCDTrackInfo currentlyPlayingInfo;
-    private Integer nextTrackTime = -1;
+    private ActiveCDTrackInfo currentlyPlayingInfo = new ActiveCDTrackInfo(-1, -1);
+    public Integer nextTrackTime = -1;
     private Integer trackIndex = -1;
 
     public StereoBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(MusicExpandedBlockEntitys.STEREO_BENTITY, blockPos, blockState);
         inventory = NonNullList.withSize(3, ItemStack.EMPTY);
+    }
+
+    public void ejectCD() {
+        if (!(level instanceof ServerLevel))
+            return;
+        playing = false;
+        CDTrack track = CDTracks.getCDTrackFromPlayingID(currentlyPlayingInfo.id());
+        track.stop(((ServerLevel) level));
+        nextTrackTime = -1;
+        trackIndex = -1;
+        currentlyPlayingInfo = new ActiveCDTrackInfo(-1, -1);
+        Block.popResource(level, worldPosition, inventory.get(0));
+        inventory.set(0, ItemStack.EMPTY);
     }
 
     public void putInCD(ItemStack stack) {
@@ -47,7 +62,9 @@ public class StereoBlockEntity extends BaseContainerBlockEntity {
     }
 
     protected void play(int tracki) {
-        if (currentlyPlayingInfo != null)
+        if (!(level instanceof ServerLevel))
+            return;
+        if (playing)
             return;
         List<String> songList = inventory.get(0).get(MusicExpandedItemComponents.CD_SONGS);
         if (songList.size() <= tracki) {
@@ -55,7 +72,8 @@ public class StereoBlockEntity extends BaseContainerBlockEntity {
             trackIndex = 0;
         }
         CDTrack track = CDTracks.getTrackFromId(songList.get(tracki));
-        currentlyPlayingInfo = track.play(level, worldPosition);
+        playing = true;
+        currentlyPlayingInfo = track.play(((ServerLevel) level), worldPosition);
         nextTrackTime = currentlyPlayingInfo.length();
     }
 
@@ -120,10 +138,15 @@ public class StereoBlockEntity extends BaseContainerBlockEntity {
             world.setBlockAndUpdate(blockPos,
                     blockState.setValue(StereoBlock.LOADED, bool));
 
+        if (blockState.getValue(StereoBlock.PLAYING) != entity.playing)
+            world.setBlockAndUpdate(blockPos,
+                    blockState.setValue(StereoBlock.PLAYING, entity.playing));
+
         if (entity.inventory.get(0).is(MusicExpandedItems.CD)) {
             if (entity.nextTrackTime > 0) {
                 entity.nextTrackTime--;
             } else {
+                entity.playing = false;
                 entity.trackIndex++;
                 entity.play();
             }

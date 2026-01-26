@@ -1,14 +1,20 @@
 package fn10.musicexpansion.music;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 import java.util.Map.Entry;
 import java.util.random.RandomGenerator;
 
-import net.minecraft.core.NonNullList;
 import net.minecraft.sounds.SoundEvents;
 
 public class CDTracks {
+
+    // get these from the wiki
+    protected static final Map<String, Integer> TRACK_LENGTHS = Map.of(
+            "cat", getTicksFromMinsAndSeconds(3, 6),
+            "13", getTicksFromMinsAndSeconds(2, 56),
+            "11", getTicksFromMinsAndSeconds(1, 11));
 
     public static final CDTrack C418_CAT = new CDTrack(lengthOf("cat"), SoundEvents.MUSIC_DISC_CAT.value(),
             "song.compactdiscs.c418.cat");
@@ -22,11 +28,11 @@ public class CDTracks {
             "13", C418_13,
             "11", C418_11);
 
-    // get these from the wiki
-    protected static final Map<String, Integer> TRACK_LENGTHS = Map.of(
-            "cat", getTicksFromMinsAndSeconds(3, 6),
-            "13", getTicksFromMinsAndSeconds(2, 56),
-            "11", getTicksFromMinsAndSeconds(1, 11));
+    protected static final HashMap<Integer, CDTrack> ACTIVE_CD_TRACKS = new HashMap<>();
+
+    public static CDTrack getCDTrackFromPlayingID(Integer id) {
+        return ACTIVE_CD_TRACKS.get(id);
+    }
 
     public static Integer getTicksFromSeconds(Integer seconds) {
         return seconds * 20;
@@ -40,11 +46,9 @@ public class CDTracks {
         return getTicksFromSeconds(seconds) + getTicksFromSeconds(minutes * 60);
     }
 
-    protected static final NonNullList<Integer> ACTIVE_CD_TRACK_IDS = NonNullList.create();
-
     public static Integer createNewCDTrackId() {
         Integer canadite = Random.from(RandomGenerator.getDefault()).nextInt(0, Integer.MAX_VALUE);
-        if (ACTIVE_CD_TRACK_IDS.contains(canadite))
+        if (ACTIVE_CD_TRACKS.containsKey(canadite))
             return createNewCDTrackId();
         else
             return canadite;

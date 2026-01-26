@@ -4,7 +4,8 @@ import java.util.HashMap;
 import java.util.Optional;
 
 import fn10.musicexpansion.items.CompactDiscItem;
-import fn10.musicexpansion.music.network.ClientBoundCDTrackPlayPayload;
+import fn10.musicexpansion.music.network.CDTrackPlayPayloadS2C;
+import fn10.musicexpansion.music.network.payload.CDTrackStopPayloadS2C;
 import fn10.musicexpansion.reg.MusicExpandedBlocks;
 import fn10.musicexpansion.reg.MusicExpandedItems;
 import fn10.musicexpansion.reg.MusicExpandedMenus;
@@ -27,17 +28,26 @@ public class MusicExpandedClient implements ClientModInitializer {
 
 	@Override
 	public void onInitializeClient() {
-		ClientPlayNetworking.registerGlobalReceiver(ClientBoundCDTrackPlayPayload.ID, (payload, contxt) -> {
+		ClientPlayNetworking.registerGlobalReceiver(CDTrackPlayPayloadS2C.ID, (payload, contxt) -> {
 			Minecraft client = contxt.client();
 			Optional<SoundEvent> optionalEvent = payload.event().unwrap().right();
 			SoundEvent event = optionalEvent.orElseThrow();
 			SoundInstance instance = SimpleSoundInstance.forJukeboxSong(event, payload.pos().getCenter());
 			client.getSoundManager().play(instance);
-			
+
 			client.gui.setNowPlaying(Component.translatable(payload.translationKey()));
 
 			TRACK_INSTANCES.put(payload.id(), instance);
 		});
+		ClientPlayNetworking.registerGlobalReceiver(CDTrackStopPayloadS2C.ID, (payload, contxt) -> {
+			Minecraft client = contxt.client();
+			SoundInstance sInstance = TRACK_INSTANCES.get(payload.id());
+			if (sInstance == null)
+				return;
+			client.getSoundManager().stop(sInstance);
+			TRACK_INSTANCES.remove(payload.id());
+		});
+
 		ItemTooltipCallback.EVENT.register((stack, context, tooltipType, lines) -> {
 			if (stack.is(MusicExpandedItems.CD)) {
 				lines.addAll(CompactDiscItem.getTooltip(context, stack, tooltipType));

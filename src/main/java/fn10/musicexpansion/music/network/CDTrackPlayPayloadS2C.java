@@ -10,17 +10,17 @@ import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.Identifier;
 import net.minecraft.sounds.SoundEvent;
 
-public record ClientBoundCDTrackPlayPayload(BlockPos pos, Holder<SoundEvent> event, Integer id, String translationKey)
+public record CDTrackPlayPayloadS2C(BlockPos pos, Holder<SoundEvent> event, Integer id, String translationKey)
 		implements CustomPacketPayload {
 	public static final Identifier CDTRACK_PLAY_PAYLOAD_ID = Identifier.fromNamespaceAndPath(MusicExpanded.MOD_ID,
 			"play_cd_track");
-	public static final CustomPacketPayload.Type<ClientBoundCDTrackPlayPayload> ID = new CustomPacketPayload.Type<>(
+	public static final CustomPacketPayload.Type<CDTrackPlayPayloadS2C> ID = new CustomPacketPayload.Type<>(
 			CDTRACK_PLAY_PAYLOAD_ID);
-	public static final StreamCodec<RegistryFriendlyByteBuf, ClientBoundCDTrackPlayPayload> CODEC = StreamCodec
-			.composite(BlockPos.STREAM_CODEC, ClientBoundCDTrackPlayPayload::pos, SoundEvent.STREAM_CODEC,
-					ClientBoundCDTrackPlayPayload::event, ByteBufCodecs.INT, ClientBoundCDTrackPlayPayload::id,
-					ByteBufCodecs.STRING_UTF8, ClientBoundCDTrackPlayPayload::translationKey,
-					ClientBoundCDTrackPlayPayload::new);
+	public static final StreamCodec<RegistryFriendlyByteBuf, CDTrackPlayPayloadS2C> CODEC = StreamCodec
+			.composite(BlockPos.STREAM_CODEC, CDTrackPlayPayloadS2C::pos, SoundEvent.STREAM_CODEC,
+					CDTrackPlayPayloadS2C::event, ByteBufCodecs.INT, CDTrackPlayPayloadS2C::id,
+					ByteBufCodecs.STRING_UTF8, CDTrackPlayPayloadS2C::translationKey,
+					CDTrackPlayPayloadS2C::new);
 
 	@Override
 	public Type<? extends CustomPacketPayload> type() {
