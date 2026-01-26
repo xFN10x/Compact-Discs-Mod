@@ -1,6 +1,6 @@
 package fn10.musicexpansion;
 
-import java.nio.channels.Channel;
+import java.util.HashMap;
 import java.util.Optional;
 
 import fn10.musicexpansion.items.CompactDiscItem;
@@ -18,11 +18,12 @@ import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.chunk.ChunkSectionLayer;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.client.resources.sounds.SoundInstance;
-import net.minecraft.client.sounds.SoundEngine.PlayResult;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.world.phys.Vec3;
 
 public class MusicExpandedClient implements ClientModInitializer {
+
+	public static HashMap<Integer, SoundInstance> TRACK_INSTANCES = new HashMap<>();
+	
 	@Override
 	public void onInitializeClient() {
 		ClientPlayNetworking.registerGlobalReceiver(ClientBoundCDTrackPlayPayload.ID, (payload, contxt) -> {
@@ -30,7 +31,9 @@ public class MusicExpandedClient implements ClientModInitializer {
 			Optional<SoundEvent> optionalEvent = payload.event().unwrap().right();
 			SoundEvent event = optionalEvent.orElseThrow();
 			SoundInstance instance = SimpleSoundInstance.forJukeboxSong(event, payload.pos().getCenter());
-			PlayResult play = client.getSoundManager().play(instance);
+			client.getSoundManager().play(instance);
+
+			TRACK_INSTANCES.put(payload.id(), instance);
 		});
 		ItemTooltipCallback.EVENT.register((stack, context, tooltipType, lines) -> {
 			if (stack.is(MusicExpandedItems.CD)) {

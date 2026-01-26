@@ -18,12 +18,31 @@ public class CDTrack {
         this.event = sound;
     }
 
-    public void play(Level level, BlockPos pos) {
-        if (level instanceof ServerLevel)
+    /**
+     * Plays this track in the given level and pos. This then sends packets to all
+     * clients.
+     * 
+     * @param level The level this is happening in.
+     * @param pos   The position this track should play
+     * @return The id of the playing track. This is how we keep track of the playing
+     *         tracks. This value is -1 if this function fails
+     */
+    public Integer play(Level level, BlockPos pos) {
+        try {
+            if (!(level instanceof ServerLevel))
+                return -1;
+            Integer id = CDTracks.createNewCDTrackId();
             for (ServerPlayer plr : ((ServerLevel) level).players()) {
-                ClientBoundCDTrackPlayPayload payload = new ClientBoundCDTrackPlayPayload(pos, Holder.direct(event));
+                ClientBoundCDTrackPlayPayload payload = new ClientBoundCDTrackPlayPayload(pos, Holder.direct(event),
+                        id);
                 ServerPlayNetworking.send(plr, payload);
             }
+            CDTracks.ACTIVE_CD_TRACK_IDS.add(id);
+            return id;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return -1;
+        }
     }
 
     public boolean equals(CDTrack other) {
