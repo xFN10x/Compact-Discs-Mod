@@ -8,11 +8,11 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
 import net.minecraft.core.HolderLookup.Provider;
 
-public class MusicExpandedTranslationProviderENG extends FabricLanguageProvider {
+public class MusicExpandedTranslationProviderEN extends FabricLanguageProvider {
 
-    public MusicExpandedTranslationProviderENG(FabricDataOutput dataOutput,
+    public MusicExpandedTranslationProviderEN(FabricDataOutput dataOutput,
             CompletableFuture<Provider> registryLookup) {
-        super(dataOutput, "en_ca", registryLookup);
+        super(dataOutput, "en_us", registryLookup);
     }
 
     @Override
