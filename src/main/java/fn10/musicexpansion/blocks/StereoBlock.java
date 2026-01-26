@@ -34,7 +34,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 public class StereoBlock extends RotatedBaseEntityBlock {
 
     public static final BooleanProperty LOADED = BooleanProperty.create("loaded");
-    public static final BooleanProperty PLAYING = BooleanProperty.create("loaded");
+    public static final BooleanProperty PLAYING = BooleanProperty.create("playing");
 
     public StereoBlock(Properties properties) {
         super(properties.noOcclusion());
@@ -76,7 +76,7 @@ public class StereoBlock extends RotatedBaseEntityBlock {
 
     @Override
     public BlockState getBaseStateForPlacement(BlockPlaceContext blockPlaceContext) {
-        return defaultBlockState().setValue(LOADED, false);
+        return defaultBlockState().setValue(LOADED, false).setValue(PLAYING, false);
     }
 
     @Override
