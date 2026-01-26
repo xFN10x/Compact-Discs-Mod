@@ -19,6 +19,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import fn10.musicexpansion.music.network.CDTrackPlayPayloadS2C;
+import fn10.musicexpansion.music.network.payload.CDTrackStopPayloadS2C;
 import fn10.musicexpansion.reg.MusicExpandedAudio;
 import fn10.musicexpansion.reg.MusicExpandedBlockEntitys;
 import fn10.musicexpansion.reg.MusicExpandedBlocks;
@@ -70,5 +71,6 @@ public class MusicExpanded implements ModInitializer {
 		MusicExpandedAudio.init();
 
 		PayloadTypeRegistry.playS2C().register(CDTrackPlayPayloadS2C.ID, CDTrackPlayPayloadS2C.CODEC);
+		PayloadTypeRegistry.playS2C().register(CDTrackStopPayloadS2C.ID, CDTrackStopPayloadS2C.CODEC);
 	}
 }
