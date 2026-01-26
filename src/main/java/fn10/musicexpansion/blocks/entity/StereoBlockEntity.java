@@ -67,6 +67,8 @@ public class StereoBlockEntity extends BaseContainerBlockEntity {
         if (!stack.is(MusicExpandedItems.CD))
             return;
         inventory.set(0, stack);
+        trackIndex = -1;
+        nextTrack();
     }
 
     protected void play() {
