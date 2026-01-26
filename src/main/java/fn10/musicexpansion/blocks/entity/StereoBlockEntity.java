@@ -52,7 +52,9 @@ public class StereoBlockEntity extends BaseContainerBlockEntity {
 
     public void stopCurrentTrack() {
         CDTrack track = CDTracks.getCDTrackFromPlayingID(currentlyPlayingInfo.id());
+        if (track == null) return;
         track.stop(((ServerLevel) level));
+        playing = false;
     }
 
     public void nextTrack() {
@@ -155,7 +157,7 @@ public class StereoBlockEntity extends BaseContainerBlockEntity {
         if (entity.inventory.get(0).is(MusicExpandedItems.CD)) {
             if (entity.nextTrackTime > 0) {
                 entity.nextTrackTime--;
-            } else {
+            } else if (entity.playing == true) {
                 entity.playing = false;
                 entity.nextTrack();
             }
