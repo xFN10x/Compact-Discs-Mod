@@ -33,7 +33,7 @@ public class MusicExpandedClient implements ClientModInitializer {
 			SoundEvent event = optionalEvent.orElseThrow();
 			SoundInstance instance = SimpleSoundInstance.forJukeboxSong(event, payload.pos().getCenter());
 			client.getSoundManager().play(instance);
-
+			
 			client.gui.setNowPlaying(Component.translatable(payload.translationKey()));
 
 			TRACK_INSTANCES.put(payload.id(), instance);

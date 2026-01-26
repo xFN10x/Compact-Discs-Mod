@@ -10,14 +10,35 @@ import net.minecraft.sounds.SoundEvents;
 
 public class CDTracks {
 
-    public static final CDTrack C418_CAT = new CDTrack(SoundEvents.MUSIC_DISC_CAT.value(), "song.compactdiscs.c418.cat");
-    public static final CDTrack C418_13 = new CDTrack(SoundEvents.MUSIC_DISC_13.value(), "song.compactdiscs.c418.13");
-    public static final CDTrack C418_11 = new CDTrack(SoundEvents.MUSIC_DISC_11.value(), "song.compactdiscs.c418.11");
+    public static final CDTrack C418_CAT = new CDTrack(lengthOf("cat"), SoundEvents.MUSIC_DISC_CAT.value(),
+            "song.compactdiscs.c418.cat");
+    public static final CDTrack C418_13 = new CDTrack(lengthOf("13"), SoundEvents.MUSIC_DISC_13.value(),
+            "song.compactdiscs.c418.13");
+    public static final CDTrack C418_11 = new CDTrack(lengthOf("11"), SoundEvents.MUSIC_DISC_11.value(),
+            "song.compactdiscs.c418.11");
 
     private static final Map<String, CDTrack> TRACK_IDS = Map.of(
             "cat", C418_CAT,
             "13", C418_13,
             "11", C418_11);
+
+    // get these from the wiki
+    protected static final Map<String, Integer> TRACK_LENGTHS = Map.of(
+            "cat", getTicksFromMinsAndSeconds(3, 6),
+            "13", getTicksFromMinsAndSeconds(2, 56),
+            "11", getTicksFromMinsAndSeconds(1, 11));
+
+    public static Integer getTicksFromSeconds(Integer seconds) {
+        return seconds * 20;
+    }
+
+    public static Integer lengthOf(String id) {
+        return TRACK_LENGTHS.getOrDefault(id, 20);
+    }
+
+    public static Integer getTicksFromMinsAndSeconds(Integer minutes, Integer seconds) {
+        return getTicksFromSeconds(seconds) + getTicksFromSeconds(minutes * 60);
+    }
 
     protected static final NonNullList<Integer> ACTIVE_CD_TRACK_IDS = NonNullList.create();
 

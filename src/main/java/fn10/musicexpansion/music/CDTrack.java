@@ -14,10 +14,12 @@ public class CDTrack {
 
     private final SoundEvent event;
     private final String translation;
+    private final Integer length;
 
-    public CDTrack(SoundEvent sound, String translationString) {
+    public CDTrack(Integer length, SoundEvent sound, String translationString) {
         this.event = sound;
         this.translation = translationString;
+        this.length = length;
     }
 
     /**
@@ -26,13 +28,14 @@ public class CDTrack {
      * 
      * @param level The level this is happening in.
      * @param pos   The position this track should play
-     * @return The id of the playing track. This is how we keep track of the playing
-     *         tracks. This value is -1 if this function fails
+     * @return An Either, with left being the id of this playing track, and right
+     *         being the length of this track. The ID is used for keeping track of
+     *         playing tracks on both client and server.
      */
-    public Integer play(Level level, BlockPos pos) {
+    public ActiveCDTrackInfo play(Level level, BlockPos pos) {
         try {
             if (!(level instanceof ServerLevel))
-                return -1;
+                return new ActiveCDTrackInfo(-1, 20);
             Integer id = CDTracks.createNewCDTrackId();
             for (ServerPlayer plr : ((ServerLevel) level).players()) {
                 ClientBoundCDTrackPlayPayload payload = new ClientBoundCDTrackPlayPayload(pos, Holder.direct(event),
@@ -40,10 +43,10 @@ public class CDTrack {
                 ServerPlayNetworking.send(plr, payload);
             }
             CDTracks.ACTIVE_CD_TRACK_IDS.add(id);
-            return id;
+            return new ActiveCDTrackInfo(id, length);
         } catch (Exception e) {
             e.printStackTrace();
-            return -1;
+            return new ActiveCDTrackInfo(-1, 20);
         }
     }
 
@@ -51,8 +54,12 @@ public class CDTrack {
         return Component.translatable(translation);
     }
 
-    public boolean equals(CDTrack other) {
-        return event.location().toString().equals(other.event.location().toString());
+    @Override
+    public boolean equals(Object other) {
+        if (other instanceof CDTrack)
+            return event.location().toString().equals(((CDTrack) other).event.location().toString());
+        else
+            return other.equals(this);
     }
 
 }

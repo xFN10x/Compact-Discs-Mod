@@ -3,6 +3,7 @@ package fn10.musicexpansion.blocks.entity;
 import java.util.List;
 
 import fn10.musicexpansion.blocks.StereoBlock;
+import fn10.musicexpansion.music.ActiveCDTrackInfo;
 import fn10.musicexpansion.music.CDTrack;
 import fn10.musicexpansion.music.CDTracks;
 import fn10.musicexpansion.reg.MusicExpandedBlockEntitys;
@@ -26,7 +27,9 @@ import net.minecraft.world.level.storage.ValueOutput;
 public class StereoBlockEntity extends BaseContainerBlockEntity {
     public NonNullList<ItemStack> inventory;
     public boolean playing = false;
-    private Integer currentlyPlayingId = -1;
+    private ActiveCDTrackInfo currentlyPlayingInfo;
+    private Integer nextTrackTime = -1;
+    private Integer trackIndex = -1;
 
     public StereoBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(MusicExpandedBlockEntitys.STEREO_BENTITY, blockPos, blockState);
@@ -34,16 +37,26 @@ public class StereoBlockEntity extends BaseContainerBlockEntity {
     }
 
     public void putInCD(ItemStack stack) {
-        if (!stack.is(MusicExpandedItems.CD)) return;
+        if (!stack.is(MusicExpandedItems.CD))
+            return;
         inventory.set(0, stack);
-        play(0);
     }
 
-    public void play(int tracki) {
-        if (currentlyPlayingId != -1) return;
+    protected void play() {
+        play(trackIndex);
+    }
+
+    protected void play(int tracki) {
+        if (currentlyPlayingInfo != null)
+            return;
         List<String> songList = inventory.get(0).get(MusicExpandedItemComponents.CD_SONGS);
+        if (songList.size() <= tracki) {
+            tracki = 0;
+            trackIndex = 0;
+        }
         CDTrack track = CDTracks.getTrackFromId(songList.get(tracki));
-        currentlyPlayingId = track.play(level, worldPosition);
+        currentlyPlayingInfo = track.play(level, worldPosition);
+        nextTrackTime = currentlyPlayingInfo.length();
     }
 
     @Override
@@ -75,7 +88,9 @@ public class StereoBlockEntity extends BaseContainerBlockEntity {
     @Override
     protected void saveAdditional(ValueOutput output) {
         output.putBoolean("playing", playing);
-        output.putInt("currentlyPlayingId", currentlyPlayingId);
+        output.putInt("currentlyPlayingId", currentlyPlayingInfo.id());
+        output.putInt("currentlyPlayingLength", currentlyPlayingInfo.length());
+        output.putInt("nextTrackTime", nextTrackTime);
         ContainerHelper.saveAllItems(output, inventory);
 
         super.saveAdditional(output);
@@ -86,7 +101,9 @@ public class StereoBlockEntity extends BaseContainerBlockEntity {
         super.loadAdditional(input);
 
         playing = input.getBooleanOr("playing", false);
-        currentlyPlayingId = input.getIntOr("currentlyPlayingId", -1);
+        currentlyPlayingInfo = new ActiveCDTrackInfo(input.getIntOr("currentlyPlayingId", -1),
+                input.getIntOr("currentlyPlayingLength", 20));
+        nextTrackTime = input.getIntOr("nextTrackTime", 20);
         ContainerHelper.loadAllItems(input, inventory);
     }
 
@@ -102,5 +119,14 @@ public class StereoBlockEntity extends BaseContainerBlockEntity {
         if (blockState.getValue(StereoBlock.LOADED) != bool)
             world.setBlockAndUpdate(blockPos,
                     blockState.setValue(StereoBlock.LOADED, bool));
+
+        if (entity.inventory.get(0).is(MusicExpandedItems.CD)) {
+            if (entity.nextTrackTime > 0) {
+                entity.nextTrackTime--;
+            } else {
+                entity.trackIndex++;
+                entity.play();
+            }
+        }
     }
 }
