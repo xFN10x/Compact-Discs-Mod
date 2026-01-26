@@ -54,7 +54,7 @@ public class StereoBlock extends RotatedBaseEntityBlock {
                 MusicExpandedBlockEntitys.STEREO_BENTITY);
         StereoBlockEntity realEntity = entity.get();
         if (player.isCrouching()) {
-            realEntity.nextTrackTime = 1;
+            realEntity.nextTrack();
         } else {
             realEntity.ejectCD();
         }
@@ -68,7 +68,7 @@ public class StereoBlock extends RotatedBaseEntityBlock {
                 MusicExpandedBlockEntitys.STEREO_BENTITY);
         StereoBlockEntity realEntity = entity.get();
         if (itemStack.is(MusicExpandedItems.CD) && realEntity.inventory.get(0).isEmpty()) {
-            realEntity.putInCD(itemStack);
+            realEntity.putInCD(itemStack.consumeAndReturn(1, player));
             return InteractionResult.CONSUME;
         }
         return useWithoutItem(blockState, level, blockPos, player, blockHitResult);

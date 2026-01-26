@@ -28,9 +28,9 @@ import net.minecraft.world.level.storage.ValueOutput;
 
 public class StereoBlockEntity extends BaseContainerBlockEntity {
     public NonNullList<ItemStack> inventory;
-    public boolean playing = false;
+    private boolean playing = false;
     private ActiveCDTrackInfo currentlyPlayingInfo = new ActiveCDTrackInfo(-1, -1);
-    public Integer nextTrackTime = -1;
+    private Integer nextTrackTime = -1;
     private Integer trackIndex = -1;
 
     public StereoBlockEntity(BlockPos blockPos, BlockState blockState) {
@@ -42,13 +42,23 @@ public class StereoBlockEntity extends BaseContainerBlockEntity {
         if (!(level instanceof ServerLevel))
             return;
         playing = false;
-        CDTrack track = CDTracks.getCDTrackFromPlayingID(currentlyPlayingInfo.id());
-        track.stop(((ServerLevel) level));
+        stopCurrentTrack();
         nextTrackTime = -1;
         trackIndex = -1;
         currentlyPlayingInfo = new ActiveCDTrackInfo(-1, -1);
         Block.popResource(level, worldPosition, inventory.get(0));
         inventory.set(0, ItemStack.EMPTY);
+    }
+
+    public void stopCurrentTrack() {
+        CDTrack track = CDTracks.getCDTrackFromPlayingID(currentlyPlayingInfo.id());
+        track.stop(((ServerLevel) level));
+    }
+
+    public void nextTrack() {
+        if (playing) stopCurrentTrack();
+        trackIndex++;
+        play();
     }
 
     public void putInCD(ItemStack stack) {
@@ -147,8 +157,7 @@ public class StereoBlockEntity extends BaseContainerBlockEntity {
                 entity.nextTrackTime--;
             } else {
                 entity.playing = false;
-                entity.trackIndex++;
-                entity.play();
+                entity.nextTrack();
             }
         }
     }
