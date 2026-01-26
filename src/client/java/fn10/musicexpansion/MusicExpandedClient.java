@@ -24,7 +24,7 @@ import net.minecraft.sounds.SoundEvent;
 public class MusicExpandedClient implements ClientModInitializer {
 
 	public static HashMap<Integer, SoundInstance> TRACK_INSTANCES = new HashMap<>();
-	
+
 	@Override
 	public void onInitializeClient() {
 		ClientPlayNetworking.registerGlobalReceiver(ClientBoundCDTrackPlayPayload.ID, (payload, contxt) -> {
@@ -33,7 +33,9 @@ public class MusicExpandedClient implements ClientModInitializer {
 			SoundEvent event = optionalEvent.orElseThrow();
 			SoundInstance instance = SimpleSoundInstance.forJukeboxSong(event, payload.pos().getCenter());
 			client.getSoundManager().play(instance);
-			client.gui.setNowPlaying(Component.translatable("text.compactdiscs.now-playing"));
+
+			client.gui.setNowPlaying(Component.translatable("text.compactdiscs.now-playing").append(" ")
+					.append(Component.translatable(payload.translationKey())));
 
 			TRACK_INSTANCES.put(payload.id(), instance);
 		});

@@ -4,6 +4,7 @@ import fn10.musicexpansion.music.network.ClientBoundCDTrackPlayPayload;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
@@ -12,9 +13,11 @@ import net.minecraft.world.level.Level;
 public class CDTrack {
 
     private final SoundEvent event;
+    private final String translation;
 
-    public CDTrack(SoundEvent sound) {
+    public CDTrack(SoundEvent sound, String translationString) {
         this.event = sound;
+        this.translation = translationString;
     }
 
     /**
@@ -33,7 +36,7 @@ public class CDTrack {
             Integer id = CDTracks.createNewCDTrackId();
             for (ServerPlayer plr : ((ServerLevel) level).players()) {
                 ClientBoundCDTrackPlayPayload payload = new ClientBoundCDTrackPlayPayload(pos, Holder.direct(event),
-                        id);
+                        id, translation);
                 ServerPlayNetworking.send(plr, payload);
             }
             CDTracks.ACTIVE_CD_TRACK_IDS.add(id);
@@ -42,6 +45,10 @@ public class CDTrack {
             e.printStackTrace();
             return -1;
         }
+    }
+
+    public Component getTranslation() {
+        return Component.translatable(translation);
     }
 
     public boolean equals(CDTrack other) {

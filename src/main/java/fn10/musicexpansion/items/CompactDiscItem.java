@@ -3,6 +3,8 @@ package fn10.musicexpansion.items;
 import java.util.ArrayList;
 import java.util.List;
 
+import fn10.musicexpansion.music.CDTrack;
+import fn10.musicexpansion.music.CDTracks;
 import fn10.musicexpansion.reg.MusicExpandedItemComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -50,9 +52,9 @@ public class CompactDiscItem extends Item {
         if (stack.has(MusicExpandedItemComponents.CD_SONGS)) {
             list.add(Component.translatable("text.cd.tooltip.cdrw").withColor(0xAAAAAA));
             for (String song : stack.get(MusicExpandedItemComponents.CD_SONGS)) {
-                list.add(addToFront("- ", Component.translatable("cd.song." + song)).withColor(0xAAAAAA));
+                CDTrack track = CDTracks.getTrackFromId(song);
+                list.add(addToFront("- ", track.getTranslation()).withColor(0xAAAAAA));
             }
-            //list.set(0, ((MutableComponent)list.get(0)).withColor(0xff58ff));
         } else {
             list.add(Component.translatable("text.cd.tooltip.nosongs").withColor(0xAAAAAA));
         }

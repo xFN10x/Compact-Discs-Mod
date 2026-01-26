@@ -21,12 +21,20 @@ public class MusicExpandedTranslationProviderENG extends FabricLanguageProvider 
         translationBuilder.add(MusicExpandedItems.CD, "Compact-Disc");
         translationBuilder.add(MusicExpandedBlocks.DISC_BURNER_BLOCK, "Disc Burner");
         translationBuilder.add(MusicExpandedBlocks.STEREO_BLOCK, "Stereo");
+
         translationBuilder.add("menu.container.disc_burner", "Disc Burner");
         translationBuilder.add("menu.container.stereo", "Stereo");
+
         translationBuilder.add("itemGroup.compactdiscs", "Compact Discs");
+        
         translationBuilder.add("text.cd.tooltip.nosongs", "No Songs");
         translationBuilder.add("text.cd.tooltip.cdrw", "CD-RW");
+
         translationBuilder.add("subtitle.compactdiscs.block.discburner", "Disc Burner Starts...");
+
+        translationBuilder.add("song.compactdiscs.c418.cat", "C418 - Cat");
+        translationBuilder.add("song.compactdiscs.c418.13", "C418 - 13");
+        translationBuilder.add("song.compactdiscs.c418.11", "C418 - 11");
     }
 
 }
