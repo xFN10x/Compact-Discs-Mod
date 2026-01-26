@@ -2,7 +2,6 @@ package fn10.musicexpansion.music;
 
 import fn10.musicexpansion.music.network.ClientBoundCDTrackPlayPayload;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
-import net.fabricmc.fabric.api.resource.v1.reloader.ResourceReloaderKeys.Server;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.server.level.ServerLevel;

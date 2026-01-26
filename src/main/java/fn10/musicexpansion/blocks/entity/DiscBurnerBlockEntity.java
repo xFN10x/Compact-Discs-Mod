@@ -1,13 +1,11 @@
 package fn10.musicexpansion.blocks.entity;
 
 import java.util.Iterator;
-import fn10.musicexpansion.MusicExpanded;
 import fn10.musicexpansion.blocks.DiscBurnerBlock;
 import fn10.musicexpansion.items.CompactDiscItem;
 import fn10.musicexpansion.menu.DiscBurnerMenu;
 import fn10.musicexpansion.reg.MusicExpandedAudio;
 import fn10.musicexpansion.reg.MusicExpandedBlockEntitys;
-import fn10.musicexpansion.reg.MusicExpandedItemComponents;
 import fn10.musicexpansion.reg.MusicExpandedItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
@@ -24,7 +22,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.inventory.SimpleContainerData;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;

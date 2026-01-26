@@ -18,6 +18,7 @@ import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.chunk.ChunkSectionLayer;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.client.resources.sounds.SoundInstance;
+import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvent;
 
 public class MusicExpandedClient implements ClientModInitializer {
@@ -32,6 +33,7 @@ public class MusicExpandedClient implements ClientModInitializer {
 			SoundEvent event = optionalEvent.orElseThrow();
 			SoundInstance instance = SimpleSoundInstance.forJukeboxSong(event, payload.pos().getCenter());
 			client.getSoundManager().play(instance);
+			client.gui.setNowPlaying(Component.translatable("text.compactdiscs.now-playing"));
 
 			TRACK_INSTANCES.put(payload.id(), instance);
 		});

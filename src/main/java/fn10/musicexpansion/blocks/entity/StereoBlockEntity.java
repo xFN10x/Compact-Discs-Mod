@@ -1,9 +1,7 @@
 package fn10.musicexpansion.blocks.entity;
 
-import java.util.Iterator;
 import java.util.List;
 
-import fn10.musicexpansion.blocks.DiscBurnerBlock;
 import fn10.musicexpansion.blocks.StereoBlock;
 import fn10.musicexpansion.music.CDTrack;
 import fn10.musicexpansion.music.CDTracks;
@@ -24,7 +22,6 @@ import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
-import net.minecraft.world.level.storage.ValueOutput.TypedOutputList;
 
 public class StereoBlockEntity extends BaseContainerBlockEntity {
     public NonNullList<ItemStack> inventory;
