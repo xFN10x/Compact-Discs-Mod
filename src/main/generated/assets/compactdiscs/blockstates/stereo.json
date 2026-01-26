@@ -1,33 +1,63 @@
 {
   "variants": {
-    "facing=east,loaded=false": {
+    "facing=east,loaded=false,playing=false": {
       "model": "compactdiscs:block/stereo",
       "y": 90
     },
-    "facing=east,loaded=true": {
+    "facing=east,loaded=false,playing=true": {
+      "model": "compactdiscs:block/stereo_playing",
+      "y": 90
+    },
+    "facing=east,loaded=true,playing=false": {
       "model": "compactdiscs:block/stereo_loaded",
       "y": 90
     },
-    "facing=north,loaded=false": {
+    "facing=east,loaded=true,playing=true": {
+      "model": "compactdiscs:block/stereo_playing",
+      "y": 90
+    },
+    "facing=north,loaded=false,playing=false": {
       "model": "compactdiscs:block/stereo"
     },
-    "facing=north,loaded=true": {
+    "facing=north,loaded=false,playing=true": {
+      "model": "compactdiscs:block/stereo_playing"
+    },
+    "facing=north,loaded=true,playing=false": {
       "model": "compactdiscs:block/stereo_loaded"
     },
-    "facing=south,loaded=false": {
+    "facing=north,loaded=true,playing=true": {
+      "model": "compactdiscs:block/stereo_playing"
+    },
+    "facing=south,loaded=false,playing=false": {
       "model": "compactdiscs:block/stereo",
       "y": 180
     },
-    "facing=south,loaded=true": {
+    "facing=south,loaded=false,playing=true": {
+      "model": "compactdiscs:block/stereo_playing",
+      "y": 180
+    },
+    "facing=south,loaded=true,playing=false": {
       "model": "compactdiscs:block/stereo_loaded",
       "y": 180
     },
-    "facing=west,loaded=false": {
+    "facing=south,loaded=true,playing=true": {
+      "model": "compactdiscs:block/stereo_playing",
+      "y": 180
+    },
+    "facing=west,loaded=false,playing=false": {
       "model": "compactdiscs:block/stereo",
       "y": 270
     },
-    "facing=west,loaded=true": {
+    "facing=west,loaded=false,playing=true": {
+      "model": "compactdiscs:block/stereo_playing",
+      "y": 270
+    },
+    "facing=west,loaded=true,playing=false": {
       "model": "compactdiscs:block/stereo_loaded",
+      "y": 270
+    },
+    "facing=west,loaded=true,playing=true": {
+      "model": "compactdiscs:block/stereo_playing",
       "y": 270
     }
   }
