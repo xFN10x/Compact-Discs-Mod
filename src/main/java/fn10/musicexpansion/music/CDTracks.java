@@ -1,9 +1,7 @@
 package fn10.musicexpansion.music;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
-import java.util.UUID;
 import java.util.Map.Entry;
 import java.util.random.RandomGenerator;
 
@@ -28,7 +26,7 @@ public class CDTracks {
         if (ACTIVE_CD_TRACK_IDS.contains(canadite))
             return createNewCDTrackId();
         else
-            return createNewCDTrackId();
+            return canadite;
     }
 
     public static CDTrack getTrackFromId(String id) {
