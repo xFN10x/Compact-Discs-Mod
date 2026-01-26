@@ -144,6 +144,11 @@ public class StereoBlockEntity extends BaseContainerBlockEntity {
         return saveWithoutMetadata(registryLookup);
     }
 
+    public void setRemoved() {
+        super.setRemoved();
+        stopCurrentTrack();
+    }
+
     public static void tick(Level world, BlockPos blockPos, BlockState blockState, StereoBlockEntity entity) {
         if (world.isClientSide())
             return;
